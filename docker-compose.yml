@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  unifi:
+    image: goofball222/unifi:5.12
+    container_name: unifi
+    dns:
+      - 192.168.1.6
+    volumes:
+      - "/etc/localtime:/etc/localtime:ro"
+      - "cert:/usr/lib/unifi/cert/"
+      - "data:/usr/lib/unifi/data/"
+      - "logs:/usr/lib/unifi/logs/"
+    restart: unless-stopped
+    networks:
+      - web
+    ports:
+      - '0.0.0.0:3478:3478/udp'
+      - '0.0.0.0:8080:8080/tcp'
+      - '0.0.0.0:8880:8880/tcp'
+      - '0.0.0.0:8843:8843/tcp'
+      - '0.0.0.0:10001:10001/udp'
+      - '0.0.0.0:8443:8443/tcp'
+        #    expose:
+        #      - 8443
+    environment: 
+      TZ: UTC
+      #    labels:
+            #      - "traefik.enable=true"
+            #        #      - "traefik.docker.network=web"
+            #      - "traefik.http.routers.unifi.tls=true"
+            #      - "traefik.http.routers.unifi.rule=Host(`unifi.mccullonas.co.uk`)"
+            #      - "traefik.http.routers.unifi.entrypoints=websecure"
+            #      - "traefik.http.routers.unifi.tls.certresolver=le_dns"
+            #      - "traefik.http.routers.unifi.middlewares=unifi-redirect"
+            #      - "traefik.http.middlewares.unifi-redirect.redirectscheme.scheme=https"
+            #      - "traefik.http.middlewares.unifi-redirect.redirectscheme.permanent=true"
+            #      - "traefik.http.services.unifi.loadbalancer.server.port=8443"
+            #      - "traefik.http.services.unifi.loadbalancer.server.scheme=https"
+networks:
+  web:
+    external: true
+
+volumes:
+  cert:
+  data:
+  logs:
