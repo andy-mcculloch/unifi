@@ -13,7 +13,7 @@ services:
       proxy:
     dns:
       - ${DNS_IP1}
-      # - ${DNS_IP2}
+      - ${DNS_IP2}
     dns_search: ${DOMAIN}
     ports:
       - 3478:3478/udp
