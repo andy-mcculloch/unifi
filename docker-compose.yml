@@ -10,7 +10,7 @@ services:
       - "config:/usr/lib/unifi/data/sites/"
     restart: always
     networks:
-      proxy_vlan:
+      proxy-vlan:
     dns:
       - ${DNS_IP1}
       - ${DNS_IP2}
@@ -29,7 +29,7 @@ services:
       TZ: UTC
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=proxy_vlan"
+      - "traefik.docker.network=proxy-vlan"
       - "traefik.http.routers.unifi.rule=Host(`unifi.${DOMAIN}`)"
       - "traefik.http.services.unifi.loadbalancer.server.port=8443"
       - "traefik.http.services.unifi.loadbalancer.server.scheme=https"
@@ -37,7 +37,7 @@ services:
       - "traefik.http.routers.unifi.tls.certresolver=le_dns"
 
 networks:
-  proxy_vlan:
+  proxy-vlan:
     external: true
 
 volumes:
