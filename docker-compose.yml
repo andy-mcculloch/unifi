@@ -11,7 +11,11 @@ services:
     restart: always
     networks:
       proxy-vlan:
+        ipv4_address: ${PROXY_VLAN_IP}
         mac_address: ${PROXY_VLAN_MAC}
+      system-vlan:
+        ipv4_address: ${SYSTEM_VLAN_IP}
+        mac_address: ${SYSTEM_VLAN_MAC}
     dns:
       - ${DNS_IP1}
       - ${DNS_IP2}
@@ -38,6 +42,8 @@ services:
       - "traefik.http.routers.unifi.tls.certresolver=le_dns"
 
 networks:
+  system-vlan:
+    external: true
   proxy-vlan:
     external: true
 
