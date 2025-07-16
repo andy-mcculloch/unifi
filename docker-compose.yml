@@ -11,6 +11,7 @@ services:
     restart: always
     networks:
       proxy-vlan:
+        mac_address: ${PROXY_VLAN_MAC}
     dns:
       - ${DNS_IP1}
       - ${DNS_IP2}
